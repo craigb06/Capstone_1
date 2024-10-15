@@ -1,1 +1,2 @@
 # Capstone_1
+Put together a business idea and basic market research, then pitch the business idea to "potential investors"(classmates). Project basic requirements include a market research database, at least one sql file with quereies used to review market research data, business operations database, entity relationship diagram for business database, and a short set of notes or slides to outline your business idea and share key results of your market research.
