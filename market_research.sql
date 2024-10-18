@@ -56,27 +56,27 @@ SET CustomerGender = 'Female'
 WHERE CustomerGender = 1;
 
 # purchase frequency = average number of purchases per year
-# find avg purchase freq and avg satisfaction score for millennials (ages 43-28)
+# find avg product price, avg purchase freq and avg satisfaction score for millennials (ages 43-28)
 SELECT * FROM market_research.electronics_sales_data;
-SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction)
+SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction), AVG(ProductPrice)
 FROM market_research.electronics_sales_data
 WHERE CustomerAge BETWEEN 28 AND 43;
 
-# find avg purchase freq and avg satisfaction score for gen-z (ages 18-27)
+# find avg product price, avg purchase freq and avg satisfaction score for gen-z (ages 18-27)
 
-SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction)
+SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction), AVG(ProductPrice)
 FROM market_research.electronics_sales_data
 WHERE CustomerAge BETWEEN 12 AND 27;
 
-# find avg purchase freq and avg satisfaction score for gen-x (ages 44-59)
+# find avg product price, avg purchase freq and avg satisfaction score for gen-x (ages 44-59)
 
-SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction)
+SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction), AVG(ProductPrice)
 FROM market_research.electronics_sales_data
 WHERE CustomerAge BETWEEN 44 AND 59;
 
-# find avg purchase freq and avg satisfaction score for baby boomers (ages 60-78)
+# find avg product price, avg purchase freq and avg satisfaction score for baby boomers (ages 60-78)
 
-SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction)
+SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction), AVG(ProductPrice)
 FROM market_research.electronics_sales_data
 WHERE CustomerAge BETWEEN 60 AND 78;
 
@@ -113,21 +113,47 @@ FROM market_research.electronics_sales_data
 GROUP BY ProductCategory
 ORDER BY popular DESC;
 
+# most popular categories with customers who purchase at least 10 times a year
+
+SELECT ProductCategory, COUNT(ProductCategory)
+FROM market_research.electronics_sales_data
+WHERE PurchaseFrequency >=10
+GROUP BY ProductCategory
+ORDER BY COUNT(ProductCategory) DESC;
+
+# most popular category for customers who rated their products a 4 or higher
+
+SELECT ProductCategory, COUNT(ProductCategory)
+FROM market_research.electronics_sales_data
+WHERE CustomerSatisfaction >=4
+GROUP BY ProductCategory
+ORDER BY COUNT(ProductCategory) DESC;
+
+# customer gender split
+
+SELECT CustomerGender, COUNT(CustomerGender)
+FROM market_research.electronics_sales_data
+GROUP BY CustomerGender;
+
 # find purchase frequency for customers between the 2 sexes
 
 SELECT AVG(PurchaseFrequency), CustomerGender
 FROM market_research.electronics_sales_data
 GROUP BY CustomerGender;
 
+# amount of customers with purchase freq higher than 10 both sexes
+
 SELECT PurchaseFrequency, COUNT(PurchaseFrequency), CustomerGender
 FROM market_research.electronics_sales_data
-WHERE PurchaseFrequency >=12
+WHERE PurchaseFrequency >=10
 GROUP BY CustomerGender, PurchaseFrequency
 ORDER BY PurchaseFrequency, CustomerGender;
 
+# which of the 2 sexes was more likely to have purchase freq higher than 10 
+
 SELECT COUNT(PurchaseFrequency), CustomerGender
 FROM market_research.electronics_sales_data
-WHERE PurchaseFrequency >=12
+WHERE PurchaseFrequency >=10
 GROUP BY CustomerGender;
 
 # find satisfaction score for customers between the 2 sexes
@@ -136,20 +162,18 @@ SELECT AVG(CustomerSatisfaction), CustomerGender
 FROM market_research.electronics_sales_data
 GROUP BY CustomerGender;
 
+# customer satisfaction scores by gender higher than 4
+
+SELECT CustomerGender, CustomerSatisfaction, COUNT(CustomerGender)
+FROM market_research.electronics_sales_data
+WHERE CustomerSatisfaction >=4
+GROUP BY CustomerGender, CustomerSatisfaction
+ORDER BY COUNT(CustomerGender) DESC;
+
+# customer satisfaction scores by age counted
+
 SELECT CustomerAge, CustomerSatisfaction, COUNT(CustomerAge)
 FROM market_research.electronics_sales_data
 WHERE CustomerSatisfaction >=4
 GROUP BY CustomerAge, CustomerSatisfaction
 ORDER BY COUNT(CustomerAge) DESC;
-
-SELECT ProductCategory, COUNT(ProductCategory)
-FROM market_research.electronics_sales_data
-WHERE PurchaseFrequency >=12 AND CustomerSatisfaction >=4
-GROUP BY ProductCategory
-ORDER BY COUNT(ProductCategory) DESC;
-
-SELECT ProductCategory, COUNT(ProductCategory)
-FROM market_research.electronics_sales_data
-WHERE CustomerSatisfaction >=4
-GROUP BY ProductCategory
-ORDER BY COUNT(ProductCategory) DESC;
