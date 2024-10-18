@@ -6,9 +6,14 @@ Put together a business idea and basic market research, then pitch the business 
 TABLE OF CONTENTS
 
   1.business_operations.sql
+  
   2.capstone_1_brainstorming_ideas.docx
+  
   3.capstone_1_er_diagram
+  
   4.database_diagram.jpg
+  
   5.key_insights.pptx
+  
   6.market_research.sql
   
