@@ -177,3 +177,25 @@ FROM market_research.electronics_sales_data
 WHERE CustomerSatisfaction >=4
 GROUP BY CustomerAge, CustomerSatisfaction
 ORDER BY COUNT(CustomerAge) DESC;
+
+# what age of customers is more likely to spend more than $2000
+
+SELECT CustomerAge, COUNT(CustomerAge)
+FROM market_research.electronics_sales_data
+WHERE ProductPrice >=2000
+GROUP BY CustomerAge
+ORDER BY COUNT(CustomerAge) DESC;
+
+# what age of customers is more likely to spend more than $2000 and purchase more than 10 times a year
+
+SELECT CustomerAge, COUNT(CustomerAge)
+FROM market_research.electronics_sales_data
+WHERE ProductPrice >=2000
+AND PurchaseFrequency >= 10
+GROUP BY CustomerAge
+ORDER BY COUNT(CustomerAge) DESC;
+
+SELECT AVG(CustomerAge)
+FROM market_research.electronics_sales_data
+WHERE ProductPrice >=2000
+AND PurchaseFrequency >= 10;
