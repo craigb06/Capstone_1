@@ -57,7 +57,7 @@ WHERE CustomerGender = 1;
 
 # purchase frequency = average number of purchases per year
 # find avg product price, avg purchase freq and avg satisfaction score for millennials (ages 43-28)
-SELECT * FROM market_research.electronics_sales_data;
+
 SELECT AVG(PurchaseFrequency), AVG(CustomerAge), AVG(CustomerSatisfaction), AVG(ProductPrice)
 FROM market_research.electronics_sales_data
 WHERE CustomerAge BETWEEN 28 AND 43;
